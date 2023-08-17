@@ -2,14 +2,14 @@ group 'app.aglet.rive_mobile'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.6.10'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 26
     }
 
     dependencies {
@@ -61,4 +61,8 @@ android {
             }
         }
     }
+}
+
+dependencies {
+    implementation 'app.rive:rive-android:5.0.0'
 }

@@ -1,62 +1,64 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:rive_mobile/rive_animation_view.dart';
 
-import 'package:flutter/services.dart';
-import 'package:rive_mobile/rive_mobile.dart';
+void main() => runApp(const MaterialApp(home: ExampleApp()));
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class ExampleApp extends StatefulWidget {
+  const ExampleApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<ExampleApp> createState() => _ExampleAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _riveMobilePlugin = RiveMobile();
+class _ExampleAppState extends State<ExampleApp> {
+  late final TextEditingController _assetPathController;
+
+  String assetPath = 'assets/coyote.riv';
 
   @override
   void initState() {
+    _assetPathController = TextEditingController(text: 'assets/vehicles.riv');
     super.initState();
-    initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _riveMobilePlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  @override
+  void dispose() {
+    _assetPathController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Rive example')),
+      body: Column(
+        children: [
+          TextFormField(
+            controller: _assetPathController,
+          ),
+          ElevatedButton(
+            onPressed: () => setState(() {
+              assetPath = _assetPathController.text;
+            }),
+            child: const Text('Load Rive asset'),
+          ),
+          SizedBox(
+            height: 200,
+            width: 300,
+            child: RiveAnimation.asset(
+              assetPath,
+              fit: BoxFit.fill,
+            ),
+          ),
+          SizedBox(
+            height: 200,
+            width: 300,
+            child: RiveAnimation.asset(
+              assetPath,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        ],
       ),
     );
   }
