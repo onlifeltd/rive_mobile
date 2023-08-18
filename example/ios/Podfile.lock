@@ -4,11 +4,17 @@ PODS:
     - Flutter
   - rive_mobile (0.0.1):
     - Flutter
+    - RiveRuntime (~> 5.1.6)
+  - RiveRuntime (5.1.6)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - rive_mobile (from `.symlinks/plugins/rive_mobile/ios`)
+
+SPEC REPOS:
+  trunk:
+    - RiveRuntime
 
 EXTERNAL SOURCES:
   Flutter:
@@ -21,8 +27,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   integration_test: 13825b8a9334a850581300559b8839134b124670
-  rive_mobile: 139a997cd5c2874b6ba1b5ecc7e6473c91d67706
+  rive_mobile: c3ae7930576b866a096df87ac2f02010f1abae5c
+  RiveRuntime: b019064a8668431b80389f83b5a2eb012e034c01
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
 COCOAPODS: 1.12.1

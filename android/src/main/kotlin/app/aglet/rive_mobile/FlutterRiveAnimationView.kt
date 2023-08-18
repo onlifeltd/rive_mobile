@@ -51,10 +51,10 @@ class FlutterRiveAnimationView internal constructor(
         methodChannel = MethodChannel(messenger, "app.aglet/flutter_rive_animation_view_$id")
         methodChannel.setMethodCallHandler(this)
 
-        applyRiveAnimationOption(initOptions)
+        applyRiveAnimationOptions(initOptions)
     }
 
-    private fun applyRiveAnimationOption(initOptions: RiveAnimationOptions) {
+    private fun applyRiveAnimationOptions(initOptions: RiveAnimationOptions) {
         if (initOptions.asset != null) {
             setAccess(initOptions.asset)
         }
@@ -65,13 +65,13 @@ class FlutterRiveAnimationView internal constructor(
 
     override fun onMethodCall(methodCall: MethodCall, result: MethodChannel.Result) {
         when (methodCall.method) {
-            "applyOption" -> methodApplyOption(methodCall, result)
+            "applyOptions" -> methodApplyOptions(methodCall, result)
             else -> result.notImplemented()
         }
     }
 
-    private fun methodApplyOption(methodCall: MethodCall, result: MethodChannel.Result) {
-        applyRiveAnimationOption(
+    private fun methodApplyOptions(methodCall: MethodCall, result: MethodChannel.Result) {
+        applyRiveAnimationOptions(
             RiveAnimationOptions.from(
                 methodCall.arguments as Map<String, Any>
             )
@@ -80,7 +80,6 @@ class FlutterRiveAnimationView internal constructor(
     }
 
     private fun setAccess(asset: String) = context.assets.open(getLookupKeyForAsset(asset)).use {
-        Log.w(TAG, "asset loaded")
         val file = File(it.readBytes())
         riveAnimationView.setRiveFile(file)
         file.release()

@@ -3,17 +3,6 @@ import UIKit
 
 public class RiveMobilePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "rive_mobile", binaryMessenger: registrar.messenger())
-    let instance = RiveMobilePlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
-
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    switch call.method {
-    case "getPlatformVersion":
-      result("iOS " + UIDevice.current.systemVersion)
-    default:
-      result(FlutterMethodNotImplemented)
-    }
+    registrar.register(RiveAnimationViewFactory(messenger: registrar.messenger(), registrar: registrar), withId: "app.aglet/flutter_rive_animation_view")
   }
 }
